@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -62,6 +63,14 @@ public class RequestBodyJsonController {
     @PostMapping("/request-body-json-v4")
     public String requestBodyJsonV4(HttpEntity<HelloData> httpEntity) {
         HelloData helloData = httpEntity.getBody();
+        log.info("v4 username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    @ResponseBody
+    @PostMapping("/request-body-json-v4-1")
+    public String requestBodyJsonV4(RequestEntity<HelloData> requestEntity) {
+        HelloData helloData = requestEntity.getBody();
         log.info("v4 username={}, age={}", helloData.getUsername(), helloData.getAge());
         return "ok";
     }
